@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html>
+<script type="text/javascript">
+// <![CDATA[
+window.onload = function(){
+  var temp = document.createElement('p');
+/*  temp.appendChild(document.createTextNode('lorem...'));
+  for(var i = 0; i < 100; i++){
+    document.body.appendChild( temp.cloneNode(true)  );
+  }*/
+
+  addEvent(document.body, 'keydown', keyDown);
+  addEvent(window, 'keydown', keyDown);
+
+}
+
+
+function addEvent(obj, evType, fn){
+  if(obj.addEventListener){
+    obj.addEventListener(evType, fn, false);
+    return true;
+  }else if(obj.attachEvent){
+    var r = obj.attachEvent("on"+evType, fn);
+    return r;
+  }
+}
+
+
+function keyDown(e){
+  var ev = e||event;
+  var key = ev.which||ev.keyCode;
+  var esc = 0;
+
+  switch(key){
+  case 37: // left
+  case 38: // up
+  case 39: // right
+  case 40: // down
+     esc = 1;
+  break;
+  }
+  if(esc && ev.preventDefault){
+    ev.preventDefault();
+  }
+  return esc;
+}
+
+// ]]>
+
+</script>
+
+<link rel="import" href="../../packages/polymer/polymer.html">
+
+  <polymer-element name="d2048-game">
+    <template>
+      <link rel="stylesheet" href="d2048.css">
+      
+      <h1>Jeu du 2048</h1>
+     <p>
+      <b>Saurez-vous parvenir à la case ultime?</b></p>
+      <div id="scoreboard" >
+        <div id="score">{{ score }}</div>
+      </div>
+      <div id="info">
+        <button id="new-game" on-click="{{ start }}">Nouvelle partie</button>
+      </div>
+      <div id="container">
+        <template if="{{ gameOver }}">
+          <div id="game-over">
+            <h1>Partie terminée!</h1>
+          </div>
+        </template>
+        <template if="{{ gameWon }}">
+          <div id="game-won">
+            <h1>Vous avez gagné!!</h1>
+          </div>
+        </template>
+        <div id="grid">
+          <template repeat="{{ row in ticks }}"><!-- 
+         --><div><!-- 
+           --><template repeat="{{ col in ticks }}"><!-- 
+               --><div class="cell"></div><!-- 
+           --></template><!-- 
+         --></div><!-- 
+       --></template>        
+        </div>
+        <div id="tiles"></div>
+      </div>
+      <div class="tailletableau">
+       <p>   Quelle taille de grille souhaitez-vous? <br />(plus facile, mais plus long)</p>
+  <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+    <input name="tool-selector" id="tool-selector-1" value="1" type="radio" checked>
+    <label for="tool-selector-1">4x4 cases</label>
+    <input name="tool-selector" id="tool-selector-2" value="2" type="radio">
+    <label for="tool-selector-2">5x5 cases</label>
+    <input name="tool-selector" id="tool-selector-3" value="3" type="radio">
+    <label for="tool-selector-3">6x6 cases</label>
+    <button id="changer" on-click="{{ loadTicks }}">Changer grille</button>
+   <br/>
+  </fieldset>
+  <br />
+  </div>
+    </template>
+  </polymer-element>
+
+  <polymer-element name="d2048-tile">
+    <template>{{ value }}</template>
+  </polymer-element><br />
+  
+  
+<script type="application/dart" src="d2048.dart"></script>  
+  
+</html>

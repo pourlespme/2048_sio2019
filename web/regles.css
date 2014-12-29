@@ -1,0 +1,32 @@
+@import url(fonts/clear-sans.css);
+  body {
+        background-color: #E7F9E7;
+        text-align: center;
+         font-size: 22px;
+      }
+      
+.contenu { 
+		min-width: 100px;
+		max-width: 900px;
+		color: #776e65;
+		margin:0 auto;
+		text-align: left;
+		}
+.reglements { 
+		
+		}
+.addthis_sharing_toolbox {
+		text-align:center;
+}
+
+h1 {
+  font-size: 60px;
+  width: 100%;
+
+}
+h2 {
+  font-size: 40px;
+  color: #333333;
+  width: 100%;
+}
+
